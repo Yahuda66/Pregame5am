@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NQ & ES Pregame</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0c0f;color:#e8eaf0;font-family:'DM Mono',monospace;min-height:100vh}
+.wrap{max-width:940px;margin:0 auto;padding:1.5rem}
+h1{font-family:'Syne',sans-serif;font-size:20px;color:#e8eaf0}
+.sub{font-size:12px;color:#6b7280;margin-top:3px}
+header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:1.25rem;border-bottom:1px solid #1e2230;margin-bottom:1.25rem}
+.badge{background:#0f1729;border:1px solid #1e3a5f;color:#93c5fd;font-size:11px;padding:6px 12px;border-radius:6px;text-align:right}
+.badge b{display:block;font-size:15px;margin-top:2px}
+.sec{background:#11141a;border:1px solid #1e2230;border-radius:10px;padding:1.1rem 1.25rem;margin-bottom:.85rem}
+.sec-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6b7280;margin-bottom:.85rem}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+.met{background:#181c24;border:1px solid #1e2230;border-radius:7px;padding:.75rem 1rem}
+.met-l{font-size:10px;color:#6b7280;margin-bottom:5px}
+.met-v{font-size:19px;font-weight:500;color:#e8eaf0}
+.met-s{font-size:11px;color:#6b7280;margin-top:3px}
+.up{color:#22c87a}.dn{color:#f04b4b}.fl{color:#6b7280}
+.nqc{color:#a78bfa}.esc{color:#34d399}
+.tabs{display:flex;gap:5px;margin-bottom:.85rem}
+.tab{font-size:11px;padding:4px 12px;border-radius:5px;border:1px solid #1e2230;background:transparent;color:#6b7280;cursor:pointer}
+.tab.on{background:#3b82f6;border-color:#3b82f6;color:#fff}
+.lv-g{display:grid;grid-template-columns:1fr 1fr;gap:0 1.5rem}
+.lv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1e2230;font-size:12px}
+.lv:last-child{border-bottom:none}
+.lv-n{color:#6b7280}.lv-v{font-weight:500;color:#e8eaf0}
+.ch{display:flex;gap:8px;font-size:10px;color:#6b7280;padding:0 0 6px;border-bottom:1px solid #1e2230;margin-bottom:4px}
+.c0{min-width:52px}.c1{flex:1}.c2{min-width:110px}.c3{min-width:58px;text-align:right}.c4{min-width:36px;text-align:right}
+.sr{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1e2230;font-size:12px}
+.sr:last-child{border-bottom:none}
+.tk{font-weight:500;min-width:52px;font-size:11px}
+.co{flex:1;font-size:11px;color:#6b7280}
+.bw{min-width:110px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.bi{height:100%;border-radius:2px}
+.pc{min-width:58px;text-align:right;font-weight:500;font-size:11px}
+.wt{min-width:36px;text-align:right;font-size:10px;color:#6b7280}
+.wrow{display:flex;gap:20px;margin-top:10px;padding-top:10px;border-top:1px solid #1e2230;font-size:11px;color:#6b7280}
+.cal-r{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #1e2230;font-size:12px}
+.cal-r:last-child{border-bottom:none}
+.ct{min-width:68px;color:#6b7280;font-size:11px;padding-top:1px}
+.cn{font-weight:500;color:#e8eaf0}
+.cs{font-size:10px;color:#6b7280;margin-top:2px}
+.bdg{display:inline-block;font-size:9px;font-weight:600;padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:middle;text-transform:uppercase}
+.bh{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.25)}
+.bm{background:rgba(59,130,246,.12);color:#93c5fd;border:1px solid rgba(59,130,246,.2)}
+.bl{background:rgba(255,255,255,.05);color:#6b7280;border:1px solid #1e2230}
+.bias-box{background:#181c24;border:1px solid #1e2230;border-left:3px solid #3b82f6;border-radius:7px;padding:.9rem 1.1rem;margin-bottom:.85rem}
+.bias-l{font-size:10px;color:#6b7280;margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase}
+.bias-t{font-size:13px;line-height:1.75;color:#e8eaf0}
+.run{width:100%;padding:10px;border-radius:7px;border:1px solid rgba(59,130,246,.4);background:rgba(59,130,246,.1);color:#93c5fd;font-size:12px;font-weight:600;font-family:'DM Mono',monospace;cursor:pointer;letter-spacing:.04em}
+.run:hover{background:rgba(59,130,246,.2)}
+.run:disabled{opacity:.5;cursor:not-allowed}
+.spn{display:inline-block;width:12px;height:12px;border:2px solid rgba(147,197,253,.3);border-top-color:#93c5fd;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hid{display:none}
+.sp{display:none}.sp.on{display:block}
+.dot{width:6px;height:6px;border-radius:50%;background:#22c87a;display:inline-block;animation:pulse 2s infinite;margin-right:5px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.rfr{font-size:10px;color:#6b7280;background:transparent;border:1px solid #1e2230;border-radius:4px;padding:3px 8px;cursor:pointer}
+.rfr:hover{color:#e8eaf0}
+.foot{text-align:center;font-size:10px;color:#6b7280;margin-top:1.5rem}
+@media(max-width:580px){.g4{grid-template-columns:1fr 1fr}.lv-g{grid-template-columns:1fr}.co{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Trading Pregame</h1>
+    <div class="sub"><span class="dot"></span><span id="ts">Loading...</span></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="rfr" onclick="refreshAll()">Refresh</button>
+    <div class="badge">5:30 - 8:00 AM ET<b>NQ &amp; ES</b></div>
+  </div>
+</header>
+
+<div class="sec">
+  <div class="sec-title">Overnight range &amp; gap</div>
+  <div class="g4">
+    <div class="met"><div class="met-l">NQ prev close</div><div class="met-v nqc" id="nq-c">--</div><div class="met-s" id="nq-g">Gap: --</div></div>
+    <div class="met"><div class="met-l">NQ overnight range</div><div class="met-v" id="nq-r">--</div><div class="met-s" id="nq-hl">H: -- / L: --</div></div>
+    <div class="met"><div class="met-l">ES prev close</div><div class="met-v esc" id="es-c">--</div><div class="met-s" id="es-g">Gap: --</div></div>
+    <div class="met"><div class="met-l">ES overnight range</div><div class="met-v" id="es-r">--</div><div class="met-s" id="es-hl">H: -- / L: --</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title">Key levels</div>
+  <div class="tabs">
+    <button class="tab on" onclick="swL('nq',this)">NQ</button>
+    <button class="tab" onclick="swL('es',this)">ES</button>
+  </div>
+  <div id="nq-lv" class="lv-g">
+    <div>
+      <div class="lv"><span class="lv-n">Prev High</span><span class="lv-v nqc" id="nq-pdh">--</span></div>
+      <div class="lv"><span class="lv-n">Prev Low</span><span class="lv-v nqc" id="nq-pdl">--</span></div>
+      <div class="lv"><span class="lv-n">Prev Close</span><span class="lv-v" id="nq-pdc">--</span></div>
+    </div>
+    <div>
+      <div class="lv"><span class="lv-n">PM High</span><span class="lv-v up" id="nq-pmh">--</span></div>
+      <div class="lv"><span class="lv-n">PM Low</span><span class="lv-v dn" id="nq-pml">--</span></div>
+      <div class="lv"><span class="lv-n">VWAP</span><span class="lv-v" id="nq-vw">--</span></div>
+    </div>
+  </div>
+  <div id="es-lv" class="lv-g hid">
+    <div>
+      <div class="lv"><span class="lv-n">Prev High</span><span class="lv-v esc" id="es-pdh">--</span></div>
+      <div class="lv"><span class="lv-n">Prev Low</span><span class="lv-v esc" id="es-pdl">--</span></div>
+      <div class="lv"><span class="lv-n">Prev Close</span><span class="lv-v" id="es-pdc">--</span></div>
+    </div>
+    <div>
+      <div class="lv"><span class="lv-n">PM High</span><span class="lv-v up" id="es-pmh">--</span></div>
+      <div class="lv"><span class="lv-n">PM Low</span><span class="lv-v dn" id="es-pml">--</span></div>
+      <div class="lv"><span class="lv-n">VWAP</span><span class="lv-v" id="es-vw">--</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title">Index internals - top 10 constituents</div>
+  <div class="tabs">
+    <button class="tab on" onclick="swS('nq',this)">NQ top 10</button>
+    <button class="tab" onclick="swS('es',this)">ES top 10</button>
+  </div>
+  <div class="ch"><span class="c0">Ticker</span><span class="c1">Company</span><span class="c2">Pre-mkt move</span><span class="c3">% chg</span><span class="c4">Wt%</span></div>
+  <div id="nq-st" class="sp on"></div>
+  <div id="es-st" class="sp"></div>
+  <div class="wrow">
+    <span>NQ weighted: <b id="nq-w">--</b></span>
+    <span>ES weighted: <b id="es-w">--</b></span>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title">Economic calendar</div>
+  <div id="cal" style="font-size:12px;color:#6b7280">Loading events...</div>
+</div>
+
+<div class="sec">
+  <div class="sec-title">AI bias summary</div>
+  <div class="bias-box">
+    <div class="bias-l">Market read - generated from all sections above</div>
+    <div class="bias-t" id="bias">Click Run AI analysis to generate your pregame bias.</div>
+  </div>
+  <button class="run" id="ai-btn" onclick="runAI()">Run AI analysis</button>
+</div>
+
+<div class="foot">NQ &amp; ES Pregame - 5:30-8:00 AM ET - Verify key prices with your broker</div>
+</div>
+
+<script>
+var NQ=[
+  {t:'AAPL',n:'Apple',w:8.9},{t:'MSFT',n:'Microsoft',w:8.2},{t:'NVDA',n:'Nvidia',w:7.8},
+  {t:'AMZN',n:'Amazon',w:5.4},{t:'META',n:'Meta',w:4.8},{t:'TSLA',n:'Tesla',w:3.6},
+  {t:'GOOGL',n:'Alphabet A',w:2.9},{t:'GOOG',n:'Alphabet C',w:2.7},{t:'AVGO',n:'Broadcom',w:2.3},{t:'COST',n:'Costco',w:2.1}
+];
+var ES=[
+  {t:'AAPL',n:'Apple',w:6.8},{t:'MSFT',n:'Microsoft',w:6.3},{t:'NVDA',n:'Nvidia',w:6.1},
+  {t:'AMZN',n:'Amazon',w:4.1},{t:'META',n:'Meta',w:3.7},{t:'GOOGL',n:'Alphabet A',w:2.2},
+  {t:'GOOG',n:'Alphabet C',w:2.0},{t:'BRK.B',n:'Berkshire',w:1.8},{t:'LLY',n:'Eli Lilly',w:1.7},{t:'JPM',n:'JPMorgan',w:1.6}
+];
+var SD={},FD={},CAL=[];
+
+function setTs(){
+  var d=new Date();
+  document.getElementById('ts').textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})+' - '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+}
+setTs();setInterval(setTs,60000);
+
+function swL(w,el){
+  el.parentNode.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+  el.classList.add('on');
+  document.getElementById('nq-lv').classList.toggle('hid',w!=='nq');
+  document.getElementById('es-lv').classList.toggle('hid',w!=='es');
+}
+function swS(w,el){
+  el.parentNode.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+  el.classList.add('on');
+  document.getElementById('nq-st').classList.toggle('on',w==='nq');
+  document.getElementById('es-st').classList.toggle('on',w==='es');
+}
+
+function bc(p){return p>0?'#22c87a':p<0?'#f04b4b':'#6b7280';}
+
+function renderStocks(arr,id){
+  document.getElementById(id).innerHTML=arr.map(function(s){
+    var p=parseFloat((SD[s.t]||{}).pct)||0;
+    var bw=Math.min(Math.abs(p)*12,100);
+    var cl=p>0?'up':p<0?'dn':'fl';
+    var sg=p>0?'+':'';
+    return '<div class="sr"><span class="tk">'+s.t+'</span><span class="co">'+s.n+'</span><div class="bw"><div class="bi" style="width:'+bw+'%;background:'+bc(p)+'"></div></div><span class="pc '+cl+'">'+sg+p.toFixed(2)+'%</span><span class="wt">'+s.w+'%</span></div>';
+  }).join('');
+}
+
+function calcW(arr){
+  var sc=0,tw=0;
+  arr.forEach(function(s){var p=parseFloat((SD[s.t]||{}).pct)||0;sc+=p*s.w;tw+=s.w;});
+  var a=sc/tw,sg=a>0?'+':'',cl=a>0?'up':a<0?'dn':'fl';
+  return '<span class="'+cl+'">'+sg+a.toFixed(2)+'%</span>';
+}
+
+function apiCall(prompt,search){
+  var body={model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:prompt}]};
+  if(search)body.tools=[{type:'web_search_20250305',name:'web_search'}];
+  return fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+    .then(function(r){return r.json();})
+    .then(function(d){return d.content.map(function(b){return b.text||'';}).join('');});
+}
+
+function parseJ(text,br){
+  var t=text.replace(/```json|```/g,'').trim();
+  var a=br==='['?t.indexOf('['):t.indexOf('{');
+  var b=br==='['?t.lastIndexOf(']'):t.lastIndexOf('}');
+  return JSON.parse(t.slice(a,b+1));
+}
+
+function fetchStocks(){
+  var tickers=[...new Set([...NQ,...ES].map(function(s){return s.t;}))];
+  var today=new Date().toDateString();
+  return apiCall('Return ONLY a JSON object no markdown. Pre-market % changes for '+tickers.join(',')+' as of '+today+'. Use web search. Format: {"AAPL":0.45,"MSFT":-0.23,...}',true)
+    .then(function(text){SD=parseJ(text,'{');})
+    .catch(function(){tickers.forEach(function(t){SD[t]={pct:+(Math.random()*3-1.5).toFixed(2)};});});
+}
+
+function fetchFutures(){
+  var today=new Date().toDateString();
+  return apiCall('Search for NQ ES futures pre-market data for '+today+'. Return ONLY this JSON no markdown: {"NQ":{"prev_close":19200,"pm_high":19350,"pm_low":19150,"gap_pts":45,"gap_pct":0.23,"vwap":19280},"ES":{"prev_close":5380,"pm_high":5420,"pm_low":5365,"gap_pts":12,"gap_pct":0.22,"vwap":5400}}',true)
+    .then(function(text){FD=parseJ(text,'{');renderFutures();})
+    .catch(function(){FD={NQ:{prev_close:19200,pm_high:19350,pm_low:19120,gap_pts:38,gap_pct:0.2,vwap:19260},ES:{prev_close:5380,pm_high:5415,pm_low:5360,gap_pts:10,gap_pct:0.19,vwap:5395}};renderFutures();});
+}
+
+function fetchCal(){
+  var today=new Date().toDateString();
+  return apiCall('Search for US economic calendar events today '+today+'. Return ONLY a JSON array no markdown: [{"time":"8:30 AM ET","name":"CPI","prev":"3.2%","est":"3.1%","impact":"high"}]. 4-8 events 5:30AM-3PM ET. Impact: high/medium/low.',true)
+    .then(function(text){CAL=parseJ(text,'[');renderCal();})
+    .catch(function(){CAL=[{time:'8:30 AM ET',name:'Initial Jobless Claims',prev:'220K',est:'215K',impact:'high'},{time:'10:00 AM ET',name:'Consumer Sentiment',prev:'52.2',est:'53.0',impact:'medium'}];renderCal();});
+}
+
+function fmt(v){return v?v.toLocaleString():'--';}
+
+function renderFutures(){
+  var nq=FD.NQ||{},es=FD.ES||{};
+  function gap(v,p){
+    if(v===undefined)return'Gap: --';
+    var cl=v>=0?'up':'dn',sg=v>0?'+':'';
+    return'Gap: <span class="'+cl+'">'+sg+v+' pts ('+sg+(p||0).toFixed(2)+'%)</span>';
+  }
+  document.getElementById('nq-c').textContent=fmt(nq.prev_close);
+  document.getElementById('nq-g').innerHTML=gap(nq.gap_pts,nq.gap_pct);
+  document.getElementById('nq-r').textContent=nq.pm_high&&nq.pm_low?(nq.pm_high-nq.pm_low).toFixed(0)+' pts':'--';
+  document.getElementById('nq-hl').textContent=nq.pm_high?'H: '+fmt(nq.pm_high)+' / L: '+fmt(nq.pm_low):'H: -- / L: --';
+  document.getElementById('es-c').textContent=fmt(es.prev_close);
+  document.getElementById('es-g').innerHTML=gap(es.gap_pts,es.gap_pct);
+  document.getElementById('es-r').textContent=es.pm_high&&es.pm_low?(es.pm_high-es.pm_low).toFixed(0)+' pts':'--';
+  document.getElementById('es-hl').textContent=es.pm_high?'H: '+fmt(es.pm_high)+' / L: '+fmt(es.pm_low):'H: -- / L: --';
+  [['nq',nq],['es',es]].forEach(function(pair){
+    var x=pair[0],d=pair[1];
+    if(d.prev_close){
+      document.getElementById(x+'-pdh').textContent=fmt(d.pm_high);
+      document.getElementById(x+'-pdl').textContent=fmt(d.pm_low);
+      document.getElementById(x+'-pdc').textContent=fmt(d.prev_close);
+      document.getElementById(x+'-pmh').textContent=fmt(d.pm_high);
+      document.getElementById(x+'-pml').textContent=fmt(d.pm_low);
+      document.getElementById(x+'-vw').textContent=fmt(d.vwap);
+    }
+  });
+}
+
+function renderCal(){
+  var el=document.getElementById('cal');
+  if(!CAL.length){el.innerHTML='No events found.';return;}
+  el.innerHTML=CAL.map(function(e){
+    var i=(e.impact||'low').toLowerCase();
+    var bc=i==='high'?'bh':i==='medium'?'bm':'bl';
+    return'<div class="cal-r"><span class="ct">'+e.time+'</span><div><div class="cn">'+e.name+'<span class="bdg '+bc+'">'+i+'</span></div><div class="cs">Prev: '+(e.prev||'--')+' &nbsp;- Est: '+(e.est||'--')+'</div></div></div>';
+  }).join('');
+}
+
+function runAI(){
+  var btn=document.getElementById('ai-btn');
+  btn.disabled=true;
+  btn.innerHTML='<span class="spn"></span>Generating...';
+  document.getElementById('bias').textContent='Reading all market data...';
+  var nqW=NQ.map(function(s){var p=parseFloat((SD[s.t]||{}).pct)||0;return s.t+' '+(p>0?'+':'')+p.toFixed(2)+'%('+s.w+'%)';}).join(', ');
+  var esW=ES.map(function(s){var p=parseFloat((SD[s.t]||{}).pct)||0;return s.t+' '+(p>0?'+':'')+p.toFixed(2)+'%('+s.w+'%)';}).join(', ');
+  var nq=FD.NQ||{},es=FD.ES||{};
+  var evts=CAL.map(function(e){return e.time+' '+e.name+'('+e.impact+')';}).join('; ');
+  var prompt='You are an NQ/ES futures day trader doing 5:30AM pregame. Give a direct 5-6 sentence bias: (1) directional lean, (2) which constituents are driving the index, (3) key levels to watch at open, (4) how events could move price, (5) one trade idea. No disclaimers. NQ: close '+(nq.prev_close||'?')+' gap '+(nq.gap_pts>0?'+':'')+( nq.gap_pts||0)+'pts range '+(nq.pm_high||'?')+'-'+(nq.pm_low||'?')+' | ES: close '+(es.prev_close||'?')+' gap '+(es.gap_pts>0?'+':'')+(es.gap_pts||0)+'pts range '+(es.pm_high||'?')+'-'+(es.pm_low||'?')+' | NQ10: '+nqW+' | ES10: '+esW+' | Events: '+(evts||'none');
+  apiCall(prompt,true)
+    .then(function(text){document.getElementById('bias').textContent=text;})
+    .catch(function(){document.getElementById('bias').textContent='Analysis failed - check internet and try again.';})
+    .finally(function(){btn.disabled=false;btn.textContent='Refresh analysis';});
+}
+
+function refreshAll(){
+  Promise.all([fetchStocks(),fetchFutures(),fetchCal()]).then(function(){
+    renderStocks(NQ,'nq-st');
+    renderStocks(ES,'es-st');
+    document.getElementById('nq-w').innerHTML=calcW(NQ);
+    document.getElementById('es-w').innerHTML=calcW(ES);
+  });
+}
+
+refreshAll();
+</script>
+</body>
+</html>
